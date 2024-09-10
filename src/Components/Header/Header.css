@@ -7,10 +7,26 @@
 .navBar_wrapper{
     display: flex;
     height: 100%;
-    background-color: rebeccapurple;
+    background-color: var(--main-color);
     justify-content: center;
     align-items: center;
 }
+
+.origin_link{
+    width: 200px;
+}
+
+.svg_header_wrapper{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+span > svg:last-child{
+    width: 100%;
+}
+
 .navBar_container{
     display: flex;
     width: 100%;
@@ -21,14 +37,13 @@
 
 .nav_separator{
     height: 100%;
-    width: 50%;
-    background-color: #fff;
+    width: 30%;
+    background-color: var(--main-color);
 }
 
 .menu{
     width: 300px;
     height: 100%;
-    /* background-color: aqua; */
 }
 
 .menu_wrapper{
@@ -39,7 +54,6 @@
 }
 
 .profile_wrapper{
-    /* padding-right: 1rem; */
     width: 30%;
 }
 
@@ -58,11 +72,12 @@
     align-items: center;
     z-index: 2;
     cursor: pointer;
+    justify-content: center;
 }
 
 .button_wrapper > button:hover{
     transition: 0.1s linear;
-    background: #7777777f;
+    background: var(--btn-hover);
 }
 
 .button_wrapper > button:not(:hover){
@@ -70,8 +85,7 @@
     background: transparent;
 }
 
-.svg_wrapper, svg{
+.svg_wrapper{
     width: 24px;
     height: 24px;
-    
 }

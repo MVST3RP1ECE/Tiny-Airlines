@@ -2,4 +2,14 @@
   max-width: 1280px;
   margin: 0 auto;
   text-align: center;
+  --main-color:#0c73fe;
+  --accent-color:#F9A817;
+  --btn-hover: #ffffff22;
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+.montserrat-alternates-regular {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
