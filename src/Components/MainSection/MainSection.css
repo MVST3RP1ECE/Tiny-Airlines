@@ -1,0 +1,110 @@
+h1{
+    margin: 0;
+    font-size: 44px;
+    word-spacing: -2px;
+    letter-spacing: -2px;
+    background-color: #363636;
+}
+
+.toggled--tour{
+    background-color: #fff;
+    color: black;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+li, ul{
+    margin: 0 auto;
+    list-style: none;
+    padding: 0 0 0 0;
+}
+
+.nav_main_section {
+    height: 100%;
+    width: 50%;
+}
+
+.list_main_section{
+    height: 100%;
+    width: 50%;
+}
+
+.h1_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 30%;
+    background-color: #303030;
+}
+
+.section_wrapper{
+    width: 100%;
+    height: 65%;
+}
+
+.main_section,
+.main_section_inner-wrapper{
+    background-color: #242424;
+    width: 100%;
+    height: 100%;
+}
+
+.nav_tour_wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 20%;
+    background-color: #424242;
+}
+
+.nav_tour_wrapper > nav > ul {
+    display: flex;
+    flex-direction: row;
+    background-color: #484848;
+}
+
+.form_tickets_wrapper{
+    height: 50%;
+    background-color: #545454;
+}
+
+
+.list_item_tour{
+    display: flex;
+    height: 100%;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+.list_item_tour:hover{
+    transition: 0.1s linear;
+    background: var(--btn-hover);
+}
+
+.list_item_tour:not(:hover){
+    transition: 0.1s linear;
+    background: transparent;
+}
+
+.toup_plaintext{
+    font-size: 16px;
+}
+
+.tour_link{
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    /* если не выбран пункт background-color: #0656fe; */
+}
+
+.tour_svg{
+    height: 50%;
+    align-content: end;
+}
