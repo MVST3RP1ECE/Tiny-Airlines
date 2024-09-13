@@ -6,9 +6,12 @@ h1{
     background-color: #363636;
 }
 
-.toggled--tour{
-    background-color: #fff;
+.toggled--tour,
+.toggled--tour > div > svg > path{
     color: black;
+    fill: black;
+    background-color: #fff;
+    border-radius: 0.5rem;
 }
 
 a{
@@ -23,13 +26,18 @@ li, ul{
 }
 
 .nav_main_section {
-    height: 100%;
-    width: 50%;
+    height: calc(70% - 20px);
+    width: calc(40% - 20px);
 }
 
 .list_main_section{
+    display: flex;
+    flex-direction: row;
+    padding: 5px 5px 5px 5px;
     height: 100%;
     width: 50%;
+    background-color: rgba(17,33,56,0.12);
+    border-radius: 0.5rem;
 }
 
 .h1_wrapper {
@@ -56,16 +64,11 @@ li, ul{
 .nav_tour_wrapper{
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     height: 20%;
     background-color: #424242;
-}
-
-.nav_tour_wrapper > nav > ul {
-    display: flex;
-    flex-direction: row;
-    background-color: #484848;
+    /* background-color: var(--main-color); */
 }
 
 .form_tickets_wrapper{
@@ -79,17 +82,23 @@ li, ul{
     height: 100%;
     width: 50%;
     justify-content: center;
-    align-items: center;
+     align-items: center;
 }
 
-.list_item_tour:hover{
+.tour_link:hover{
     transition: 0.1s linear;
+    border-radius: 0.5rem;
     background: var(--btn-hover);
 }
 
-.list_item_tour:not(:hover){
+/* ?костыль? для того чтобы был задный  фон на выбранном элементе toggled--tour*/
+.toggled--tour:hover{
+    background-color: #fff;
+}
+
+.tour_link:not(:hover){
     transition: 0.1s linear;
-    background: transparent;
+    /* background: transparent; */
 }
 
 .toup_plaintext{
@@ -107,4 +116,13 @@ li, ul{
 .tour_svg{
     height: 50%;
     align-content: end;
+}
+
+.tour_plaintext{
+    overflow-wrap: anywhere;
+}
+
+.main_form{
+    width: 100%;
+    height: 40%;
 }
