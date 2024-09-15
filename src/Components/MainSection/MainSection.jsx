@@ -2,6 +2,9 @@ import React, { useRef, useState } from 'react'
 import './MainSection.css'
 import SvgAirplane from '../SVG/SvgAirplane'
 import SvgHotel from '../SVG/SvgHotel'
+import Calendar from 'react-calendar'
+import SvgCalendar from '../SVG/SvgCalendar'
+import SvgPassenger from '../SVG/SvgPassenger'
 
 export default function MainSection() {
 
@@ -48,12 +51,41 @@ export default function MainSection() {
                     </div>
                     <div className='form_tickets_wrapper'>
                         <form action="" className='main_form'>
-                            <input type="text" placeholder='Откуда' name="" id="" />
-                            <input type="text" placeholder='Куда' name="" id="" />
-                            <input type="date" name="" id="" />
-                            <input type="date" name='' id=''/>
-                            <button type="button" value="Пассажиры"></button>
-                            <input type="submit" />
+                            <div className='form_inner_wrapper'>
+                                <input type="text" placeholder='Откуда' name="" id="" />
+                                <input type="text" placeholder='Куда' name="" id="" />
+                                <button type="button">
+                                    <div className='button_inner_wrapper'>
+                                        <span className='user_date_from'>
+                                            Когда
+                                        </span>
+                                        <>
+                                            <SvgCalendar/>
+                                        </>
+                                    </div>
+                                </button>
+                                <button type="button">
+                                <div className='button_inner_wrapper'>
+                                        <span className='user_date_to'>
+                                            Обратно
+                                        </span>
+                                        <>
+                                            <SvgCalendar/>
+                                        </>
+                                    </div>
+                                </button>
+                                <button type="button" value="">
+                                    <div className='button_inner_wrapper'>
+                                        <span className='user_passenger'>
+                                            1 Пассажир
+                                        </span>
+                                        {/* <div className='arrow_dropdown_passenger'>
+                                            CSS Arrow Dropdown
+                                        </div> */}
+                                    </div>
+                                </button>
+                                <input type="submit" disabled value="Найти билеты"/>
+                            </div>
                         </form>
                     </div>
                 </div>    

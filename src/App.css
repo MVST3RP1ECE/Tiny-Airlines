@@ -4,8 +4,9 @@
   margin: 0 auto;
   text-align: center;
   --main-color:#0c73fe;
-  --accent-color:#F9A817;
+  --accent-color:#fa742d; /*#f25122*/
   --btn-hover: #ffffff22;
+  --grey-color: #9ea9b7;
   font-family: "Montserrat Alternates", sans-serif;
   width: inherit;
   height: inherit;
