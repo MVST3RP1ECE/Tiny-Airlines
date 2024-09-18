@@ -153,6 +153,7 @@ li, ul{
 }
 
 .form_inner_wrapper > button {
+    box-sizing: border-box;
     width: 20%;
 }
 
@@ -182,7 +183,9 @@ li, ul{
 }
 
 .form_inner_wrapper > *:focus{
-    border: 2px solid var(--accent-color);
+    box-sizing: border-box;
+    /* border: 2px solid var(--accent-color); */
+    box-shadow: 0 0 0 2px var(--accent-color);
 }
 
 .button_inner_wrapper{
@@ -204,6 +207,39 @@ li, ul{
     position: absolute;
     margin-top: 7px;
     right: 10px;
+
+    transition: 0.180s linear;
+    transform: rotate(-360deg);
+}
+
+.user_passenger-rotate::after{
+    transition: 0.180s linear;
+    transform: rotate(-180deg);
+}
+
+.passengers_wrapper{
+    /* width: 15%;
+    height: 100%;
+    background-color: #fff; */
+    height: 144%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 18%;
+    right: 28.8%;
+    top: 30%;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    color: black;
+}
+
+
+/* Возможно придётся переделать, т.к. внутренняя обёртка идёт на абсолютно позиционироуемый объект */
+.inner_passengers_wrapper{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
 }
 
 .calendar_wrapper{
