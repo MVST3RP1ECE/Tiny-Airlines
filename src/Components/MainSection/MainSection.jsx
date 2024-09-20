@@ -37,11 +37,9 @@ export default function MainSection() {
     const [userDateFromFocus, setUserDateFromFocus] = useState(false);
     const [userDateToFocus, setUserDateToFocus] = useState(false);
     
-    // const toggleClickHandler = (e) => {
-    //     e.preventDefault();
-    //     setToggledTourClassAirplane(!toggledTourClassAirplane);
-    //     setToggledTourClassHotel(!toggledTourClassHotel);
-    // }
+    // 211ст
+    const [userPassengerAmount, setUserPassengerAmount] = useState("1 пассажир")
+    const [userPassengerClass, setUserPassengerClass] = useState("Эконом")
 
     // Функция переключения на страницу Авиабилеты.
     // Function for switch to page Airtickets
@@ -205,11 +203,12 @@ export default function MainSection() {
                                 </button>
                                 <button type="button" value="" 
                                 onClick={handleClickUserPassenger}>
-                                    <div className='button_inner_wrapper'>
+                                    <div className='button_inner_wrapper passenger_and_class'>
                                         <span 
                                         className={`${toggledPassengerClass ? 'user_passenger user_passenger-rotate' : "user_passenger"}`}>
-                                            1 Пассажир
+                                            {userPassengerAmount}
                                         </span>
+                                        <span className='passenger_class'>{userPassengerClass}</span>
                                     </div>
                                 </button>
                                 <input type="submit" disabled value="Найти билеты"/>
@@ -239,23 +238,32 @@ export default function MainSection() {
                         toggledPassengerClass ? 
                         <div className='passengers_wrapper'>
                             <div className='inner_passengers_wrapper'>
-                                <div> Количество пассажиров </div>
-                                <TypePassenger ageGroup="Взрослые" ageGroupParams="12 лет и старше"/>
-                                <TypePassenger ageGroup="Дети" ageGroupParams="от 2 до 11 лет"/>
-                                <TypePassenger ageGroup="Младенцы" ageGroupParams="Младше 2 лет, без места"/>
-                                <div>
-                                    <div>
-                                        <TypeClass/>
-                                        <TypeClass/>
-                                        <TypeClass/>
-                                        <TypeClass/>
+                                <span> Количество пассажиров </span>
+                                <TypePassenger ageGroup="Взрослые" ageGroupParams="12 лет и старше" 
+                                defaultPassengerAmount="1"/>
+                                <TypePassenger ageGroup="Дети" ageGroupParams="от 2 до 11 лет" 
+                                defaultPassengerAmount="0"/>
+                                <TypePassenger ageGroup="Младенцы" ageGroupParams="Младше 2 лет, без места" defaultPassengerAmount="0"/>
+                            </div>
+                            <div className='type_class_section'>
+                                <div className='type_class_wrapper'>
+                                    <span> Класс обслуживания</span>
+                                    <div className='type_component_wrapper'>
+                                        <TypeClass classType="class_type_eco" classValue="Эконом" elementName="type"
+                                        defaultValue={true}/>
+                                        <TypeClass classType="class_type_comf" classValue="Комфорт" elementName="type"
+                                        defaultValue={false}/>
+                                        <TypeClass classType="class_type_biz" classValue="Бизнес" elementName="type"
+                                        defaultValue={false}/>
+                                        <TypeClass classType="class_type_first" classValue="Первый класс" elementName="type"
+                                        defaultValue={false}/>
                                     </div>
                                 </div>
                             </div>
                         </div> : ""
                         }
                     </div>
-                </div>    
+                </div>
             </section>
         </div>
     </>

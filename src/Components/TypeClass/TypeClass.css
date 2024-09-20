@@ -1,0 +1,48 @@
+.class_value{
+    width: 100%;
+    text-align: left;
+}
+
+.label_is_wrapper{
+    display: flex;
+    justify-content: space-around;
+    padding: 5px 20px 5px 12px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.label_is_wrapper > .radio__input {
+    width: 10px;
+    height: 10px;
+    align-self: center;
+    justify-content: flex-end;
+}
+
+.rad_btn{
+    position: relative;
+    height: 24px;
+    width: 24px;
+}
+
+.rad_btn::after{
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    border: 5px solid var(--main-color);
+    border-radius: 50%;
+}
+
+.radio__input{
+    /* appearance: none нужен для грамотного скрытия дефолтных кнопон */
+    appearance: none;
+    margin: 0px;
+}
+
+.radio__input:checked + .rad_btn::after{
+    content: "";
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
+    border: 5px solid var(--accent-color);
+}

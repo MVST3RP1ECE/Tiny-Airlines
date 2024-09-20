@@ -196,6 +196,25 @@ li, ul{
     overflow: hidden;
 }
 
+.passenger_and_class{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.passenger_and_class > span{
+    width: 100%;
+}
+
+.user_passenger{
+    text-transform: lowercase;
+}
+
+.passenger_class{
+    color: var(--grey-color);
+    /* font-size: 12px; */
+}
+
 .user_passenger::after{
     content: "";
     width: 0;
@@ -229,17 +248,48 @@ li, ul{
     right: 28.8%;
     top: 30%;
     border-radius: 0.5rem;
+    justify-content: space-between;
     background-color: #fff;
     color: black;
 }
 
+.type_class_section{
+    box-sizing: border-box;
+    height: 94%;
+}
+
+.type_class_wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.type_class_wrapper > span{
+    margin: 0;
+    font-weight: 600;
+    overflow: hidden;
+}
+
+.type_component_wrapper{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
 
 /* Возможно придётся переделать, т.к. внутренняя обёртка идёт на абсолютно позиционироуемый объект */
 .inner_passengers_wrapper{
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    height: 100%;
-    padding: 10px;
+    height: 50%;
+    padding: 10px 0px 10px 0px;
+}
+
+.inner_passengers_wrapper > span {
+    font-weight: 600;
 }
 
 .calendar_wrapper{
