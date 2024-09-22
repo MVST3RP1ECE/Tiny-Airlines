@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import './MainSection.css'
 import SvgAirplane from '../SVG/SvgAirplane'
 import SvgHotel from '../SVG/SvgHotel'
@@ -25,10 +25,13 @@ export default function MainSection() {
 
     const [toggledPassengerClass, setToggledPassengerClass] = useState(false);
 
+    const [userTravelFrom, setUserTravelFrom] = useState("");
+    const [userTravelTo, setUserTravelTo] = useState("");
+
     // Состояния для отображения выбранных дат пользователя.
     // States for display chosen user dates.
     const [userDateDisplayFrom, setUserDateDisplayFrom] = useState("Когда");
-    const [userDateDisplayTo, setUserDateDisplayTo] = useState("Обртано");
+    const [userDateDisplayTo, setUserDateDisplayTo] = useState("Обратно");
 
     // Состояние отображения календаря. Если "true" -> появляется <div> с календарём, иначе не появляется ¯\_(ツ)_/¯
     // State for calendar display. If true -> displays <div> with calendar, else display nothing ¯\_(ツ)_/¯
@@ -65,9 +68,6 @@ export default function MainSection() {
         setToggledTourClassHotel(!toggledTourClassHotel);
     }
 
-
-
-
     // Функция для отображения календаря при клике на поле "Когда"
     // Function for calendar display when onClick at "userDateDisplayFrom" element
     // class: toggled--calendar
@@ -99,13 +99,23 @@ export default function MainSection() {
             DateFrom: e.getDate(),
             MonthFrom: RuMonthNumsToMonthNames(e.getMonth()),
             YearFrom: e.getFullYear(),
-            FullDate: e.toLocaleDateString()
+            FullDateFrom: e.toLocaleDateString()
         }
     // Строка с выбором пользователя мб далее понадобится, поэтому заранее сделал так.
     //  String with user choice maybe usefull, then i did this
-        const userDateFromChoosen = `${userDateFromObj.DateFrom} ${userDateFromObj.MonthFrom}, ${userDateFromObj.WeekDayFrom}`
-        setUserDateDisplayFrom(prev => userDateFromChoosen)
+        const userDateFromChoosen = 
+        `${userDateFromObj.DateFrom} ${userDateFromObj.MonthFrom}, ${userDateFromObj.WeekDayFrom}, ${userDateFromObj.YearFrom}`
+        // TODO поробую сделать не строку а object для удобства
+        //  setUserDateDisplayFrom(prev => userDateFromChoosen)
+        setUserDateDisplayFrom(prev => ({
+            WeekDayFrom: userDateFromObj.WeekDayFrom,
+            DateFrom: userDateFromObj.DateFrom,
+            MonthFrom: userDateFromObj.MonthFrom,
+            YearFrom: userDateFromObj.YearFrom,
+            FullDateFrom: userDateFromObj.FullDateFrom
+        }))
         console.log(userDateFromObj);
+        return userDateFromObj;
     }
 
     // Функция для создания и отображения объекта даты в поле (Обратно), который ввёл пользователя.
@@ -117,17 +127,47 @@ export default function MainSection() {
             DateTo: e.getDate(),
             MonthTo: RuMonthNumsToMonthNames(e.getMonth()),
             YearTo: e.getFullYear(),
-            FullTo: e.toLocaleDateString()
+            FullDateTo: e.toLocaleDateString()
         }
-        const userDateToChoosen = `${userDateToObj.DateTo} ${userDateToObj.MonthTo}, ${userDateToObj.WeekDayTo}`
-        setUserDateDisplayTo(prev => userDateToChoosen)
+        const userDateToChoosen = `${userDateToObj.DateTo} ${userDateToObj.MonthTo}, ${userDateToObj.WeekDayTo},
+        ${userDateToObj.YearTo}`
+
+        // TODO поробую сделать не строку а object для удобства
+        // setUserDateDisplayTo(prev => userDateToChoosen)
+        setUserDateDisplayTo(prev => ({
+            WeekDayTo: userDateToObj.WeekDayTo,
+            DateTo: userDateToObj.DateTo,
+            MonthTo: userDateToObj.MonthTo,
+            YearTo: userDateToObj.YearTo,
+            FullDateTo: userDateToObj.FullDateTo
+        }))
+
         console.log(userDateToObj);
-        
+        return userDateToObj;
     }
 
     function handleClickUserPassenger(){
         setToggledPassengerClass(!toggledPassengerClass);
         console.log("Passengers");
+    }
+
+    const userTicketData = {
+        TicketFrom: userTravelFrom,
+        TicketTo: userTravelTo,
+        TicketDateStart: userDateDisplayFrom == "Когда" ? "" : userDateDisplayFrom,
+        TicketDateEnd: userDateDisplayTo == "Обратно" ? "" : userDateDisplayTo,
+        TicketPassengers: null,
+        TicketFullDate: userDateDisplayFrom.FullDateFrom,
+    }
+
+    const handleClickSubmit = (e) =>{
+        e.preventDefault();
+        console.log(userTicketData);
+    }
+
+    const handleInputChangeClass = (e) => {
+        console.log(e.target.value);
+        setUserPassengerClass(e.target.value)
     }
 
   return (
@@ -171,8 +211,14 @@ export default function MainSection() {
                     <div className='form_tickets_wrapper'>
                         <form action="" className='main_form'>
                             <div className='form_inner_wrapper'>
-                                <input type="text" placeholder='Откуда' name="" id="" />
-                                <input type="text" placeholder='Куда' name="" id="" />
+
+                                <input type="text" placeholder='Откуда' name="" id="" 
+                                onChange= {e => setUserTravelFrom(e.target.value)}/>
+
+
+                                <input type="text" placeholder='Куда' name="" id=""
+                                onChange= {e => setUserTravelTo(e.target.value)}/>
+
                                 <button type="button" 
                                 // Переписать под изменение класса
                                 className={`${toggledCalendarFromActiveClass ? 'toggled--calendar' : ''}`}
@@ -180,7 +226,13 @@ export default function MainSection() {
                                 >
                                     <div className='button_inner_wrapper'>
                                         <span className='user_date_from'>
-                                            {userDateDisplayFrom}
+                                            {/* {userDateDisplayFrom} */}
+                                            { userDateDisplayFrom.DateFrom ? 
+                                            `${userDateDisplayFrom.DateFrom},
+                                              ${userDateDisplayFrom.MonthFrom},
+                                              ${userDateDisplayFrom.WeekDayFrom},
+                                              ${userDateDisplayFrom.YearFrom}`
+                                            : "Когда"}
                                         </span>
                                         <>
                                             <SvgCalendar/>
@@ -194,7 +246,13 @@ export default function MainSection() {
                                 >
                                     <div className='button_inner_wrapper'>
                                             <span className='user_date_to'>
-                                                {userDateDisplayTo}
+                                                {/* {userDateDisplayTo} */}
+                                            {userDateDisplayTo.DateTo ? 
+                                            `${userDateDisplayTo.DateTo},
+                                              ${userDateDisplayTo.MonthTo},
+                                              ${userDateDisplayTo.WeekDayTo},
+                                              ${userDateDisplayTo.YearTo}`
+                                            : "Обратно"}
                                             </span>
                                             <>
                                                 <SvgCalendar/>
@@ -211,7 +269,7 @@ export default function MainSection() {
                                         <span className='passenger_class'>{userPassengerClass}</span>
                                     </div>
                                 </button>
-                                <input type="submit" disabled value="Найти билеты"/>
+                                <input type="submit" value="Найти билеты" onClick={handleClickSubmit}/>
                             </div>
                         </form>
                         {   
@@ -250,13 +308,13 @@ export default function MainSection() {
                                     <span> Класс обслуживания</span>
                                     <div className='type_component_wrapper'>
                                         <TypeClass classType="class_type_eco" classValue="Эконом" elementName="type"
-                                        defaultValue={true}/>
+                                        defaultValue={false} handleInputChangeClass={handleInputChangeClass}/>
                                         <TypeClass classType="class_type_comf" classValue="Комфорт" elementName="type"
-                                        defaultValue={false}/>
+                                        defaultValue={false} handleInputChangeClass={handleInputChangeClass}/>
                                         <TypeClass classType="class_type_biz" classValue="Бизнес" elementName="type"
-                                        defaultValue={false}/>
+                                        defaultValue={false} handleInputChangeClass={handleInputChangeClass}/>
                                         <TypeClass classType="class_type_first" classValue="Первый класс" elementName="type"
-                                        defaultValue={false}/>
+                                        defaultValue={false} handleInputChangeClass={handleInputChangeClass}/>
                                     </div>
                                 </div>
                             </div>

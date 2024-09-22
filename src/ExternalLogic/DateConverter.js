@@ -49,48 +49,48 @@ export function EngMonthNumsToMonthNames(month){
 export function RuDayNumsToWeekdays(day){
     switch (day){
         case 0:
-            return "Вс";
+            return "Вс.";
         case 1:
-            return "Пн";
+            return "Пн.";
         case 2:
-            return "Вт";
+            return "Вт.";
         case 3:
-            return "Ср";
+            return "Ср.";
         case 4:
-            return "Чт";
+            return "Чт.";
         case 5:
-            return "Пт";
+            return "Пт.";
         case 6:
-            return "Сб";
+            return "Сб.";
     }
 }
 
 export function RuMonthNumsToMonthNames(month){
     switch (month){
         case 0:
-            return "Янв";
+            return "Янв.";
         case 1:
-            return "Фев";
+            return "Фев.";
         case 2:
-            return "Март";
+            return "Март.";
         case 3:
-            return "Апр";
+            return "Апр.";
         case 4:
-            return "Май";
+            return "Май.";
         case 5:
-            return "Июнь";
+            return "Июнь.";
         case 6:
-            return "Июль";
+            return "Июль.";
         case 7:
-            return "Авг";
+            return "Авг.";
         case 8:
-            return "Сент";
+            return "Сент.";
         case 9:
-            return "Окт";
+            return "Окт.";
         case 10:
-            return "Нояб";
+            return "Нояб.";
         case 11:
-            return "Дек";
+            return "Дек.";
     }
 }
 
