@@ -156,8 +156,9 @@ export default function MainSection() {
         TicketTo: userTravelTo,
         TicketDateStart: userDateDisplayFrom == "Когда" ? "" : userDateDisplayFrom,
         TicketDateEnd: userDateDisplayTo == "Обратно" ? "" : userDateDisplayTo,
+        TicketClass: userPassengerClass,
         TicketPassengers: null,
-        TicketFullDate: userDateDisplayFrom.FullDateFrom,
+        // TicketFullDate: userDateDisplayFrom.FullDateFrom,
     }
 
     const handleClickSubmit = (e) =>{
@@ -168,6 +169,18 @@ export default function MainSection() {
     const handleInputChangeClass = (e) => {
         console.log(e.target.value);
         setUserPassengerClass(e.target.value)
+    }
+
+    // TODO РЕФАКТОРИТЬ компонент <TypePassenger> разбить его на 3 компонента 
+    // <TypePassengerAdults> , <TypePassengerKids> , <TypePassengerBabies>
+    const handlePassengerControlAdults = (e) => {
+
+    }
+    const handlePassengerControlKids = (e) => {
+
+    }
+    const handlePassengerControlBabies = (e) => {
+
     }
 
   return (
@@ -298,10 +311,14 @@ export default function MainSection() {
                             <div className='inner_passengers_wrapper'>
                                 <span> Количество пассажиров </span>
                                 <TypePassenger ageGroup="Взрослые" ageGroupParams="12 лет и старше" 
-                                defaultPassengerAmount="1"/>
+                                defaultPassengerAmount={1}
+                                passengerControlAdults={handlePassengerControlAdults}/>
                                 <TypePassenger ageGroup="Дети" ageGroupParams="от 2 до 11 лет" 
-                                defaultPassengerAmount="0"/>
-                                <TypePassenger ageGroup="Младенцы" ageGroupParams="Младше 2 лет, без места" defaultPassengerAmount="0"/>
+                                defaultPassengerAmount={0}
+                                passengerControlKids={handlePassengerControlKids}/>
+                                <TypePassenger ageGroup="Младенцы" ageGroupParams="Младше 2 лет, без места" 
+                                defaultPassengerAmount={0}
+                                passengerControlBabies={handlePassengerControlBabies}/>
                             </div>
                             <div className='type_class_section'>
                                 <div className='type_class_wrapper'>

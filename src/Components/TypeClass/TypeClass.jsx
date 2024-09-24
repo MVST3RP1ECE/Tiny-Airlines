@@ -7,7 +7,6 @@ export default function TypeClass({classType, classValue, elementName, defaultVa
   // let handleInputChangeClass = (e) =>{
   //   console.log(e.target.value);
   // }
-  
 
   return (
     <div className='type_class_wrapper-elements'>

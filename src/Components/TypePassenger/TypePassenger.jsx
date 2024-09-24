@@ -4,7 +4,8 @@ import './TypePassenger.css'
 import PassengerCounter from '../PassengerCounter/PassengerCounter'
 
 
-export default function TypePassenger({ageGroup, ageGroupParams, defaultPassengerAmount}) {
+export default function TypePassenger({ageGroup, ageGroupParams, defaultPassengerAmount, 
+  passengerControlAdults, passengerControlKids, passengerControlBabies}) {
   return (
     <div className='type_passengers-wrapper'>
         <div className='passenger_age-group'>
@@ -26,7 +27,12 @@ export default function TypePassenger({ageGroup, ageGroupParams, defaultPassenge
         </div>
         <div className='wrapper_count-passenger'>
             {/*  TODO Сделать формы управления кол-вом пассажиров категории (добавить/убавить) + вывод в <div>*/}
-            <PassengerCounter defaultValue={defaultPassengerAmount}/>
+            <PassengerCounter 
+            defaultValue={defaultPassengerAmount}
+            passengerControlAdults={passengerControlAdults}
+            passengerControlKids={passengerControlKids}
+            passengerControlBabies={passengerControlBabies}
+            />
         </div>
     </div>
   )
