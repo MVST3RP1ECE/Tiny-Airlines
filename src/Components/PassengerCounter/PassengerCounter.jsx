@@ -8,7 +8,8 @@ export default function PassengerCounter({defaultValue, passengerControlAdults, 
 
   const [countPassenger, setCountPassenger] = useState(defaultValue);
 
-  console.log(passengerControlAdults, passengerControlKids, passengerControlBabies);
+  // console.log(passengerControlAdults, passengerControlKids, passengerControlBabies);
+  console.log(countPassenger);
 
   function handleDecrement(){
     if (countPassenger == 0) {
@@ -40,7 +41,6 @@ export default function PassengerCounter({defaultValue, passengerControlAdults, 
                 <SvgPlus/>
               </button>
             </div>
-
         </div>
     </>
   )
