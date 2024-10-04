@@ -55,7 +55,9 @@ export default function MainSection({ text1, text2 }) {
   const [userDateToFocus, setUserDateToFocus] = useState(false);
 
   // 211ст
-  const [userPassengerAmount, setUserPassengerAmount] = useState("1 пассажир");
+  const [userPassengerAmount, setUserPassengerAmount] = useState(1);
+  const [userPassengerAmountText, setUserPassengerAmountText] =
+    useState("пассажир");
   const [userPassengerClass, setUserPassengerClass] = useState("Эконом");
 
   // Функция для очистки пространства при смене "фокуса" с элемента "input[text = "Откуда"]"
@@ -298,6 +300,7 @@ export default function MainSection({ text1, text2 }) {
                 <div className="form_inner_wrapper">
                   <input
                     type="text"
+                    spellCheck="true"
                     placeholder="Откуда"
                     name="textFrom"
                     id="textFrom"
@@ -307,6 +310,7 @@ export default function MainSection({ text1, text2 }) {
 
                   <input
                     type="text"
+                    spellCheck="true"
                     placeholder="Куда"
                     name="textTo"
                     id="textTo"
@@ -360,11 +364,7 @@ export default function MainSection({ text1, text2 }) {
                       </>
                     </div>
                   </button>
-                  <button
-                    type="button"
-                    value=""
-                    onClick={handleClickUserPassenger}
-                  >
+                  <button type="button" onClick={handleClickUserPassenger}>
                     <div className="button_inner_wrapper passenger_and_class">
                       <span
                         className={`${
@@ -373,7 +373,7 @@ export default function MainSection({ text1, text2 }) {
                             : "user_passenger"
                         }`}
                       >
-                        {userPassengerAmount}
+                        {userPassengerAmount} {userPassengerAmountText}
                       </span>
                       <span className="passenger_class">
                         {userPassengerClass}
@@ -421,6 +421,10 @@ export default function MainSection({ text1, text2 }) {
                       ageGroupParams="12 лет и старше"
                       defaultPassengerAmount={1}
                       passengerValidator={passengerValidator}
+                      userPassengerAmount={userPassengerAmount}
+                      setUserPassengerAmount={setUserPassengerAmount}
+                      userPassengerAmountText={userPassengerAmountText}
+                      setUserPassengerAmountText={setUserPassengerAmountText}
                     />
 
                     <TypePassengerKids
@@ -428,6 +432,10 @@ export default function MainSection({ text1, text2 }) {
                       ageGroupParams="от 2 до 11 лет"
                       defaultPassengerAmount={0}
                       passengerValidator={passengerValidator}
+                      userPassengerAmount={userPassengerAmount}
+                      setUserPassengerAmount={setUserPassengerAmount}
+                      userPassengerAmountText={userPassengerAmountText}
+                      setUserPassengerAmountText={setUserPassengerAmountText}
                     />
 
                     <TypePassengerBabies
@@ -435,6 +443,10 @@ export default function MainSection({ text1, text2 }) {
                       ageGroupParams="Младше 2 лет, без места"
                       defaultPassengerAmount={0}
                       passengerValidator={passengerValidator}
+                      userPassengerAmount={userPassengerAmount}
+                      setUserPassengerAmount={setUserPassengerAmount}
+                      userPassengerAmountText={userPassengerAmountText}
+                      setUserPassengerAmountText={setUserPassengerAmountText}
                     />
 
                     {/* --------------------------------- OLD VERSION --------------------------------- */}
