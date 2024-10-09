@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState, useEffect } from "react";
 import "./MainSection.css";
 import SvgAirplane from "../SVG/SvgAirplane";
 import SvgHotel from "../SVG/SvgHotel";
@@ -22,6 +22,15 @@ import { Link } from "react-router-dom";
 import Nav from "../Nav/Nav";
 
 export default function MainSection({ text1, text2 }) {
+
+  useEffect(()=> {
+    return(
+      sessionStorage.clear(),
+      sessionStorage.setItem("Пассажиры Взрослые", 1),
+      sessionStorage.setItem("Класс", "Эконом")
+    )
+  }, [])
+
   // Состояниее для переключения текущей страницы (Билеты/Отели). !На данный момент существует только 1 страница (Авиабилеты)
   // State for switch current page (Airtickets/Hotels). !At this time working only 1 page (Airtickets)
   const [toggledTourClassAirplane, setToggledTourClassAirplane] =
@@ -208,11 +217,9 @@ export default function MainSection({ text1, text2 }) {
   function handleClickUserPassenger() {
     if (toggledCalendarFromActiveClass) {
       setToggledCalendarFromActiveClass(!toggledCalendarFromActiveClass);
-      //   setUserDateToFocus(!userDateToFocus); trash
     }
     if (toggledCalendarToActiveClass) {
       setToggledCalendarToActiveClass(!toggledCalendarToActiveClass);
-      //   setUserDateFromFocus(!userDateFromFocus); trash
     }
     if (userDateToFocus) {
       setUserDateToFocus(!userDateToFocus);
@@ -222,7 +229,6 @@ export default function MainSection({ text1, text2 }) {
     }
 
     setToggledPassengerClass(!toggledPassengerClass);
-    // console.log("Passengers");
   }
 
   const userTicketData = {
@@ -249,40 +255,65 @@ export default function MainSection({ text1, text2 }) {
   const handleInputChangeClass = (e) => {
     console.log(e.target.value);
     setUserPassengerClass(e.target.value);
-    if (e.target.value == "Комфорт") {
-      toggleClassComf = true;
-      toggleClassEco = false;
-      toggleClassBiz = false;
-      toggleClassFirst = false;
-    }
-    if (e.target.value == "Бизнес") {
-      toggleClassBiz = true;
-      toggleClassComf = false;
-      toggleClassEco = false;
-      toggleClassFirst = false;
-    }
-    if (e.target.value == "Первый класс") {
-      toggleClassFirst = true;
-      toggleClassBiz = false;
-      toggleClassComf = false;
-      toggleClassEco = false;
-    }
-    if (e.target.value == "Эконом") {
-      toggleClassEco = true;
-      toggleClassFirst = false;
-      toggleClassBiz = false;
-      toggleClassComf = false;
-    }
+    sessionStorage.setItem("Класс", e.target.value)
+
+    // if (e.target.value == "Комфорт") {
+    //   toggleClassComf = true;
+    //   toggleClassEco = false;
+    //   toggleClassBiz = false;
+    //   toggleClassFirst = false;
+    // }
+    // if (e.target.value == "Бизнес") {
+    //   toggleClassBiz = true;
+    //   toggleClassComf = false;
+    //   toggleClassEco = false;
+    //   toggleClassFirst = false;
+    // }
+    // if (e.target.value == "Первый класс") {
+    //   toggleClassFirst = true;
+    //   toggleClassBiz = false;
+    //   toggleClassComf = false;
+    //   toggleClassEco = false;
+    // }
+    // if (e.target.value == "Эконом") {
+    //   toggleClassEco = true;
+    //   toggleClassFirst = false;
+    //   toggleClassBiz = false;
+    //   toggleClassComf = false;
+    // }
   };
+  
+  function getSavedClassValueEco(){
+    let classCache = sessionStorage.getItem("Класс");
+    if (classCache == "Эконом") {
+      return true;
+    }
+    return false;
+  }
 
-  // TODO РЕФАКТОРИТЬ компонент <TypePassenger> разбить его на 3 компонента
-  // <TypePassengerAdults> , <TypePassengerKids> , <TypePassengerBabies>
+  function getSavedClassValueComf(){
+    let classCache = sessionStorage.getItem("Класс");
+    if (classCache == "Комфорт") {
+      return true;
+    }
+    return false;
+  }
 
-  const handlePassengerControlAdults = (e) => {};
-  const handlePassengerControlKids = (e) => {};
-  const handlePassengerControlBabies = (e) => {};
+  function getSavedClassValueBiz(){
+    let classCache = sessionStorage.getItem("Класс");
+    if (classCache == "Бизнес") {
+      return true;
+    }
+    return false;
+  }
 
-  const passengerValidator = (e) => {};
+  function getSavedClassValueFirst(){
+    let classCache = sessionStorage.getItem("Класс");
+    if (classCache == "Первый класс") {
+      return true;
+    }
+    return false;
+  }
 
   return (
     <>
@@ -373,6 +404,7 @@ export default function MainSection({ text1, text2 }) {
                             : "user_passenger"
                         }`}
                       >
+                        {/* hash.1 */}
                         {userPassengerAmount} {userPassengerAmountText}
                       </span>
                       <span className="passenger_class">
@@ -410,7 +442,6 @@ export default function MainSection({ text1, text2 }) {
               ) : (
                 ""
               )}
-
               {toggledPassengerClass ? (
                 <div className="passengers_wrapper">
                   <div className="inner_passengers_wrapper">
@@ -419,8 +450,7 @@ export default function MainSection({ text1, text2 }) {
                     <TypePassengerAdults
                       ageGroup="Взрослые"
                       ageGroupParams="12 лет и старше"
-                      defaultPassengerAmount={1}
-                      passengerValidator={passengerValidator}
+                      defaultPassengerAmount={Number(1)}
                       userPassengerAmount={userPassengerAmount}
                       setUserPassengerAmount={setUserPassengerAmount}
                       userPassengerAmountText={userPassengerAmountText}
@@ -430,8 +460,7 @@ export default function MainSection({ text1, text2 }) {
                     <TypePassengerKids
                       ageGroup="Дети"
                       ageGroupParams="от 2 до 11 лет"
-                      defaultPassengerAmount={0}
-                      passengerValidator={passengerValidator}
+                      defaultPassengerAmount={Number(0)}
                       userPassengerAmount={userPassengerAmount}
                       setUserPassengerAmount={setUserPassengerAmount}
                       userPassengerAmountText={userPassengerAmountText}
@@ -441,25 +470,12 @@ export default function MainSection({ text1, text2 }) {
                     <TypePassengerBabies
                       ageGroup="Младенцы"
                       ageGroupParams="Младше 2 лет, без места"
-                      defaultPassengerAmount={0}
-                      passengerValidator={passengerValidator}
+                      defaultPassengerAmount={Number(0)}
                       userPassengerAmount={userPassengerAmount}
                       setUserPassengerAmount={setUserPassengerAmount}
                       userPassengerAmountText={userPassengerAmountText}
                       setUserPassengerAmountText={setUserPassengerAmountText}
                     />
-
-                    {/* --------------------------------- OLD VERSION --------------------------------- */}
-                    {/* <TypePassenger ageGroup="Взрослые" ageGroupParams="12 лет и старше" 
-                                defaultPassengerAmount={1}
-                                passengerControlAdults={handlePassengerControlAdults}/> */}
-                    {/* <TypePassenger ageGroup="Дети" ageGroupParams="от 2 до 11 лет" 
-                                defaultPassengerAmount={0}
-                                passengerControlKids={handlePassengerControlKids}/> */}
-                    {/* <TypePassenger ageGroup="Младенцы" ageGroupParams="Младше 2 лет, без места" 
-                                defaultPassengerAmount={0}
-                                passengerControlBabies={handlePassengerControlBabies}/> */}
-                    {/* --------------------------------- OLD VERSION --------------------------------- */}
                   </div>
                   <div className="type_class_section">
                     <div className="type_class_wrapper">
@@ -470,6 +486,7 @@ export default function MainSection({ text1, text2 }) {
                           classValue="Эконом"
                           elementName="type"
                           defaultValue={""}
+                          defaultChecked={getSavedClassValueEco()}
                           reff={toggleClassEco}
                           handleInputChangeClass={handleInputChangeClass}
                         />
@@ -478,6 +495,7 @@ export default function MainSection({ text1, text2 }) {
                           classValue="Комфорт"
                           elementName="type"
                           defaultValue={""}
+                          defaultChecked={getSavedClassValueComf()}
                           reff={toggleClassComf}
                           handleInputChangeClass={handleInputChangeClass}
                         />
@@ -486,6 +504,7 @@ export default function MainSection({ text1, text2 }) {
                           classValue="Бизнес"
                           elementName="type"
                           defaultValue={""}
+                          defaultChecked={getSavedClassValueBiz()}
                           reff={toggleClassBiz}
                           handleInputChangeClass={handleInputChangeClass}
                         />
@@ -494,6 +513,7 @@ export default function MainSection({ text1, text2 }) {
                           classValue="Первый класс"
                           elementName="type"
                           defaultValue={""}
+                          defaultChecked={getSavedClassValueFirst()}
                           reff={toggleClassFirst}
                           handleInputChangeClass={handleInputChangeClass}
                         />

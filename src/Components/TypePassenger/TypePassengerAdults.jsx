@@ -28,6 +28,7 @@ export default function TypePassengerAdults({
             userPassengerAmount={userPassengerAmount}
             setUserPassengerAmount={setUserPassengerAmount}
             setUserPassengerAmountText={setUserPassengerAmountText}
+            ageGroup={ageGroup}
           />
         </div>
       </div>

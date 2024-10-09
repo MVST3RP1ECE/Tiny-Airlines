@@ -5,19 +5,37 @@ import SvgPlus from "../SVG/SvgPlus";
 import "./PassengerCounter.css";
 import { PassengerEnding } from "/src/ExternalLogic/PassengerEnding.js";
 
-export default function PassengerCounter({ defaultValue, userPassengerAmount, setUserPassengerAmount, setUserPassengerAmountText }) {
+export default function PassengerCounter({ defaultValue, userPassengerAmount, setUserPassengerAmount, setUserPassengerAmountText, ageGroup }) {
   const [countPassenger, setCountPassenger] = useState(defaultValue);
 
   useEffect(() => {
+    // Подставляем правильные окончания для кол-во пассажиров
     PassengerEnding(userPassengerAmount, setUserPassengerAmountText);
+
+    // Устанавливаем значение из sessionStorage в counter после удаления компонента из DOM (ComponenWillUnmount()) (костыль вместо кэширования)
+    setCountPassenger(Number(sessionStorage.getItem(`Пассажиры ${ageGroup}`)))
+
     if (countPassenger <= defaultValue) {
       let btnDec = btnDecrement.current;
       btnDec.setAttribute("disabled", "");
     }
-  });
+  }, []);
 
+  
   const btnIncrement = useRef();
   const btnDecrement = useRef();
+
+
+  // "Обновляем значение в sessionStorage, в зависимости от прожатой кнопки +-"
+  function setSessionStoragePassengerValueDecr(ageGroup){
+    sessionStorage.setItem(`Пассажиры ${ageGroup}`, countPassenger - 1)
+    sessionStorage.setItem(`Всего пассажиров`, userPassengerAmount - 1)
+  }
+  // "Обновляем значение в sessionStorage, в зависимости от прожатой кнопки +-"
+  function setSessionStoragePassengerValueIncr(ageGroup){
+    sessionStorage.setItem(`Пассажиры ${ageGroup}`, countPassenger + 1)
+    sessionStorage.setItem(`Всего пассажиров`, userPassengerAmount + 1)
+  }
 
   if (countPassenger === 9) {
     let btnInc = btnIncrement.current;
@@ -43,21 +61,13 @@ export default function PassengerCounter({ defaultValue, userPassengerAmount, se
       let btnDec = btnDecrement.current;
       btnDec.removeAttribute("disabled");
     }
-
-    // if (userPassengerAmount == 1 || userPassengerAmount == 21) {
-    //   setUserPassengerAmountText("пассажир");
-    // }
-    // if (userPassengerAmount >= 2 && userPassengerAmount <= 4) {
-    //   setUserPassengerAmountText("пассажира");
-    // }
-    // if (userPassengerAmount >= 22 && userPassengerAmount <= 24) {
-    //   setUserPassengerAmountText("пассажира");
-    // } else {
-    //   setUserPassengerAmountText("пассажиров");
-    // }
-
     setUserPassengerAmount((prev) => prev - 1);
     setCountPassenger((prev) => prev - 1);
+
+    // sessionStorage.setItem("Passengers", userPassengerAmount - 1)
+    setSessionStoragePassengerValueDecr(ageGroup);
+
+    // Функция подставляющая правильное окончание к отображению "пассажиров"
     PassengerEnding(userPassengerAmount, setUserPassengerAmountText);
   }
 
@@ -66,19 +76,13 @@ export default function PassengerCounter({ defaultValue, userPassengerAmount, se
       let btnDec = btnDecrement.current;
       btnDec.removeAttribute("disabled");
     }
-    // if (userPassengerAmount == 1 || userPassengerAmount == 21) {
-    //   setUserPassengerAmountText("пассажир");
-    // }
-    // if (userPassengerAmount >= 2 && userPassengerAmount <= 4) {
-    //   setUserPassengerAmountText("пассажира");
-    // }
-    // if (userPassengerAmount >= 22 && userPassengerAmount <= 24) {
-    //   setUserPassengerAmountText("пассажира");
-    // } else {
-    //   setUserPassengerAmountText("пассажиров");
-    // }
     setUserPassengerAmount((prev) => prev + 1);
     setCountPassenger((prev) => prev + 1);
+
+    // sessionStorage.setItem("Passengers", userPassengerAmount + 1)
+    setSessionStoragePassengerValueIncr(ageGroup);
+
+    // Функция подставляющая правильное окончание к отображению "пассажиров"
     PassengerEnding(userPassengerAmount, setUserPassengerAmountText);
   }
 
@@ -90,13 +94,17 @@ export default function PassengerCounter({ defaultValue, userPassengerAmount, se
             className="btn_decrement"
             ref={btnDecrement}
             onClick={handleDecrement}
-            // disabled
           >
             <SvgMinus />
           </button>
         </div>
 
-        <div className="counter_number">{countPassenger}</div>
+          {/* Условный рендер для получения значения из sessionStorage */}
+        <div className="counter_number">
+          {sessionStorage.getItem(`Пассажиры ${ageGroup}`) ? 
+          <div className="counter_number">{sessionStorage.getItem(`Пассажиры ${ageGroup}`)}</div>
+          : <div className="counter_number">{countPassenger}</div>}
+        </div> 
 
         <div className="counter_increment">
           <button className="btn_increment" ref={btnIncrement} onClick={handleIncrement}>
