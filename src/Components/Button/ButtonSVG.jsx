@@ -7,8 +7,6 @@ export default function Button({icon, text}) {
     console.log(text);
   }
 
-  // TODO разобраться с подключением шрифтов к react проекту. Приступить к написанию след. секции
-
   if(text == "Профиль"){
     return(
       <button className='button_profile' onClick={nameLog}>

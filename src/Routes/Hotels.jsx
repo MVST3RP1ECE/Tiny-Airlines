@@ -7,9 +7,6 @@ import Header from "../Components/Header/Header";
 export default function Hotels({ text1, text2, text3 }) {
   return (
     <>
-      {/* <Header />
-      <h1>Тут бронируют дешёвые отели</h1>
-      <Nav page="/hotels" /> */}
       <Header />
       <div className="section_wrapper">
         <section className="main_section">

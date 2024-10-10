@@ -231,14 +231,22 @@ export default function MainSection({ text1, text2 }) {
     setToggledPassengerClass(!toggledPassengerClass);
   }
 
+  const userPassengersInfo = {
+    TotalPassengers: userPassengerAmount,
+    PassengerTypeAdults: sessionStorage.getItem("Пассажиры Взрослые"),
+    PassengerTypeKids: sessionStorage.getItem("Пассажиры Дети"),
+    PassengerTypeBabies: sessionStorage.getItem("Пассажиры Младенцы"),
+    // hash .2
+  }
+
   const userTicketData = {
     TicketFrom: userTravelFrom,
     TicketTo: userTravelTo,
     TicketDateStart: userDateDisplayFrom == "Когда" ? "" : userDateDisplayFrom,
     TicketDateEnd: userDateDisplayTo == "Обратно" ? "" : userDateDisplayTo,
-    TicketClass: userPassengerClass,
-    TicketPassengers: null,
     // TicketFullDate: userDateDisplayFrom.FullDateFrom,
+    TicketClass: userPassengerClass,
+    TicketPassengers: userPassengersInfo,
   };
 
   let toggleClassEco = useRef(true);
@@ -248,6 +256,37 @@ export default function MainSection({ text1, text2 }) {
 
   const handleClickSubmit = (e) => {
     // e.preventDefault();
+    sessionStorage.setItem("Откуда", userTicketData.TicketFrom)
+    sessionStorage.setItem("Куда", userTicketData.TicketTo)
+
+    if(userTicketData.TicketDateStart.FullDateFrom == undefined){
+      sessionStorage.setItem("Начало поездки", `Неизвестно`)
+    }
+    else {
+      sessionStorage.setItem("Начало поездки", `${userTicketData.TicketDateStart.FullDateFrom},
+          ${userTicketData.TicketDateStart.WeekDayFrom}`)
+    }
+
+    if(userTicketData.TicketDateEnd.FullDateTo == undefined){
+      sessionStorage.setItem("Окончание поездки", `Неизвестно`)
+    }
+    else {
+      sessionStorage.setItem("Окончание поездки", `${userTicketData.TicketDateEnd.FullDateTo},
+          ${userTicketData.TicketDateEnd.WeekDayTo}`)
+    }
+    console.log(userTicketData.TicketDateStart.FullDateFrom);
+    console.log(userTicketData.TicketDateEnd.FullDateTo);
+    
+
+    
+    // sessionStorage.setItem("Начало поездки", 
+    //   `${userTicketData.TicketDateStart.DateFrom} ${userTicketData.TicketDateStart.MonthFrom} 
+    //   ${userTicketData.TicketDateStart.WeekDayFrom}, ${userTicketData.TicketDateStart.YearFrom}`)
+
+    // sessionStorage.setItem("Окончание поездки",
+    //   `${userTicketData.TicketDateEnd.DateTo} ${userTicketData.TicketDateEnd.MonthTo} 
+    //   ${userTicketData.TicketDateEnd.WeekDayTo}, ${userTicketData.TicketDateEnd.YearTo}`)
+
     console.log(userTicketData);
   };
 
@@ -256,31 +295,6 @@ export default function MainSection({ text1, text2 }) {
     console.log(e.target.value);
     setUserPassengerClass(e.target.value);
     sessionStorage.setItem("Класс", e.target.value)
-
-    // if (e.target.value == "Комфорт") {
-    //   toggleClassComf = true;
-    //   toggleClassEco = false;
-    //   toggleClassBiz = false;
-    //   toggleClassFirst = false;
-    // }
-    // if (e.target.value == "Бизнес") {
-    //   toggleClassBiz = true;
-    //   toggleClassComf = false;
-    //   toggleClassEco = false;
-    //   toggleClassFirst = false;
-    // }
-    // if (e.target.value == "Первый класс") {
-    //   toggleClassFirst = true;
-    //   toggleClassBiz = false;
-    //   toggleClassComf = false;
-    //   toggleClassEco = false;
-    // }
-    // if (e.target.value == "Эконом") {
-    //   toggleClassEco = true;
-    //   toggleClassFirst = false;
-    //   toggleClassBiz = false;
-    //   toggleClassComf = false;
-    // }
   };
   
   function getSavedClassValueEco(){
