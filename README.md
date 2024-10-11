@@ -4,4 +4,4 @@
 
 🌊 I tried to copy main page of popular web site, which sales a chehap aviatickets ✈ (https://aviasales.com) 
 
-🛠 Tech stack: HTML / CSS / JS / React
+🛠 Tech stack: HTML / CSS / JS / React / React router
